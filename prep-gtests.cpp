@@ -93,6 +93,13 @@ int main(int argc, char **argv)
       jaw::reader reader(filename);
       std::map<std::string, int> results;
       parselogfile(reader, results);
+
+      // skip adding if results is empty
+      if (results.empty()) {
+        // remove run
+        runs.erase(std::find(runs.begin(), runs.end(), run));
+        continue;
+      }
       runresults.insert(make_pair(runname, results));
       
       // for each test suite
